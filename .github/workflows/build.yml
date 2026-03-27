@@ -27,5 +27,5 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MIDI++-Release-x64
-          path: MIDI++/bin/x64/Release/MIDI++.exe
+          name: MIDI++-Release
+          path: D:\a\MIDIPlusPlus\MIDIPlusPlus\x64\Release
