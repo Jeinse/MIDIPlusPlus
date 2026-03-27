@@ -307,13 +307,13 @@ void __stdcall MIDIConnect::RtMidiCallback(double /*deltaTime*/,
     case 0x90: // Note On
         if (data2 > 0) {
             const auto& mapping = self->m_noteMapping[data1][data2];
-            for (int i = 0; i < 10 && inputCount < MAX_BATCH_INPUTS; i++) {
+            for (int i = 0; i < 10 && inputCount < MAX_INPUTS_BATCH; i++) {
                 batched[inputCount++] = mapping[i];
             }
         }
         else {
             const auto& mapping = self->m_noteMapping[data1][0];
-            for (int i = 0; i < 10 && inputCount < MAX_BATCH_INPUTS; i++) {
+            for (int i = 0; i < 10 && inputCount < MAX_INPUTS_BATCH; i++) {
                 batched[inputCount++] = mapping[i];
             }
         }
@@ -321,7 +321,7 @@ void __stdcall MIDIConnect::RtMidiCallback(double /*deltaTime*/,
 
     case 0x80: { // Note Off - Added scope to avoid variable declaration error
         const auto& mapping = self->m_noteMapping[data1][0];
-        for (int i = 0; i < 10 && inputCount < MAX_BATCH_INPUTS; i++) {
+        for (int i = 0; i < 10 && inputCount < MAX_INPUTS_BATCH; i++) {
             batched[inputCount++] = mapping[i];
         }
         break;
@@ -330,7 +330,7 @@ void __stdcall MIDIConnect::RtMidiCallback(double /*deltaTime*/,
     case 0xB0: // Control Change
         if (data1 == 64) { // Sustain pedal
             const auto& mapping = self->m_sustainMapping[data2];
-            for (int i = 0; i < 10 && inputCount < MAX_BATCH_INPUTS; i++) {
+            for (int i = 0; i < 10 && inputCount < MAX_INPUTS_BATCH; i++) {
                 batched[inputCount++] = mapping[i];
             }
         }
