@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        configuration: [Release, Debug]
+        configuration: [Release]
         platform: [x64]     # 项目仅支持 64 位
 
     steps:
@@ -19,7 +19,7 @@ jobs:
         uses: microsoft/setup-msbuild@v2   # 使用较新版本
 
       - name: Restore NuGet packages (if any)
-        run: msbuild 'MIDI++/MIDI++.sln' /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /t:restore
+        run: msbuild 'MIDI++.sln' /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /t:restore
 
       - name: Build MIDI++ solution
-        run: msbuild 'MIDI++/MIDI++.sln' /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /m
+        run: msbuild 'MIDI++.sln' /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /m
