@@ -1,0 +1,24 @@
+name: Build MIDIPlusPlus
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-2022   # 使用 VS 2022 工具链
+
+    strategy:
+      matrix:
+        configuration: [Release, Debug]
+        platform: [x64]     # 项目仅支持 64 位
+
+    steps:
+      - uses: actions/checkout@v4   # 更新到 v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2   # 使用较新版本
+
+      - name: Restore NuGet packages (if any)
+        run: msbuild 'MIDI++/MIDI++.sln' /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /t:restore
+
+      - name: Build MIDI++ solution
+        run: msbuild 'MIDI++/MIDI++.sln' /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /m
